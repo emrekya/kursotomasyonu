@@ -204,15 +204,27 @@
 										</div>
 
 										<div class="col-xs-4">
+										<label>Personel Resim</label>
+											<c:choose>
+												<c:when test="${ not empty perduzenle.getPerResimAdi() }">
+													<div class="form-group">
+														<img class="profile-user-img img-responsive img-regtangle"
+															style="width: 200px; height: 200px"
+															src="http://localhost:8080/resim/server/php/files/<c:out value="${ perduzenle.getPerTC() }"></c:out>/<c:out value="${ perduzenle.getPerResimAdi() }"></c:out>"
+															alt="User profile picture">
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="form-group">
+														<img class="profile-user-img img-responsive img-regtangle"
+															style="width: 200px; height: 200px"
+															src='<c:out value="/kursotomasyonu/resources/dist/img/emptyhoto.png"></c:out>'
+															alt="User profile picture">
+													</div>
+												</c:otherwise>
+											</c:choose>
 											<div class="form-group">
-
-												<img class="profile-user-img img-responsive img-regtangle"
-													style="width: 200px; height: 200px"
-													src="http://localhost:8080/resim/server/php/files/<c:out value="${ perduzenle.getPerTC() }"></c:out>/<c:out value="${ perduzenle.getPerResimAdi() }"></c:out>"
-													alt="User profile picture">
-											</div>
-											<div class="form-group">
-												<label>Personel Resim</label>
+												
 												<div>
 													<iframe id="resim"
 														src='http://localhost:8080/resim/index.php?resim_id=<c:out value="${ perduzenle.getPerTC() }"></c:out>'

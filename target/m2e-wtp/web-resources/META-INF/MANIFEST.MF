@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: aylin
-Build-Jdk: 1.8.0_141
+Built-By: Emre KAYA
+Build-Jdk: 1.8.0_151
 Created-By: Maven Integration for Eclipse
 

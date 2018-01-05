@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import Properties.Dersler;
-import Properties.Ogrenci;
 import Utils.DB;
 
 

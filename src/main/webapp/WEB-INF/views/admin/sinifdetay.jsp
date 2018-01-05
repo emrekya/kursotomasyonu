@@ -44,17 +44,20 @@
 							<div class="col-md-12">
 								<form role="form" id="sinifDetay">
 									<div class="form-group">
-										<label>Sınıf Adı</label> <input type="text" name="sinifAdi"  value='<c:out value="${ snfDetay.getSinifAdi() }"></c:out>'
+										<label>Sınıf Adı</label> <input type="text" name="sinifAdi"
+											value='<c:out value="${ snfDetay.getSinifAdi() }"></c:out>'
 											class="form-control" name="sinifAdi"
 											placeholder="Sınıf Adı Giriniz" disabled>
 									</div>
-									<input type="hidden" name="sinifId" value='<c:out value="${ snfDetay.getSinifId() }"></c:out>' >
+									<input type="hidden" name="sinifId"
+										value='<c:out value="${ snfDetay.getSinifId() }"></c:out>'>
 									<div class="form-group">
-										<label>Öğrenci Sayısı</label> <input type="number" 
-											class="form-control" name="ogrenciSayisi"  value='<c:out value="${ snfDetay.getOgrenciSayisi() }"></c:out>'
+										<label>Öğrenci Sayısı</label> <input type="number"
+											class="form-control" name="ogrenciSayisi"
+											value='<c:out value="${ snfDetay.getOgrenciSayisi() }"></c:out>'
 											placeholder="Öğrenci Sayısı Giriniz" disabled>
 									</div>
-			
+
 									<!-- /.box-body -->
 								</form>
 							</div>
@@ -62,42 +65,38 @@
 
 						<div class="box-footer">
 							<div class="row">
-								<div class="col-xs-12">
-				
-							
-
-								</div>
+								<div class="col-xs-12"></div>
 							</div>
 						</div>
 						<!-- /.box-body -->
 					</div>
 				</div>
-			
-					<div class="col-md-12">
-						<div class="box box-primary">
-							<div class="box-header">
-								<h3 class="box-title">Öğrenci Listesi</h3>
-							</div>
 
-							<!-- /.box-header -->
-							<div class="box-body">
-								<table class="table table-bordered">
-									<tr>
-										<th style="width: 10px">Sıra</th>
-										<th>TC</th>
-										<th>Adı</th>
-										<th>Soyadı</th>
-										<th>Doğum Tarihi</th>
-										<th>Telefon</th>
-										<th>EMail</th>
-										<th>Öğrenim Durumu</th>
-										<th>Sınıf</th>
-									</tr>
-									<tbody id="ekleYaz">
+				<div class="col-md-12">
+					<div class="box box-primary">
+						<div class="box-header">
+							<h3 class="box-title">Öğrenci Listesi</h3>
+						</div>
+
+						<!-- /.box-header -->
+						<div class="box-body">
+							<table class="table table-bordered">
+								<tr>
+									<th style="width: 10px">Sıra</th>
+									<th>TC</th>
+									<th>Adı</th>
+									<th>Soyadı</th>
+									<th>Doğum Tarihi</th>
+									<th>Telefon</th>
+									<th>EMail</th>
+									<th>Öğrenim Durumu</th>
+									<th>Sınıf</th>
+								</tr>
+								<tbody id="ekleYaz">
 									<c:if test="${ not empty lsOgrenci }">
 										<c:forEach items="${ lsOgrenci }" var="ogr">
 											<tr>
-												
+
 												<td><c:out value="${ ogr.getOgrSira() }"></c:out></td>
 												<td><c:out value="${ ogr.getOgrTC() }"></c:out></td>
 												<td><c:out value="${ ogr.getOgrAdi() }"></c:out></td>
@@ -107,18 +106,18 @@
 												<td><c:out value="${ ogr.getOgrEMail() }"></c:out></td>
 												<td><c:out value="${ ogr.getOgrDurumu() }"></c:out></td>
 												<td><c:out value="${ ogr.getOgrSinifAdi() }"></c:out></td>
-												
+
 											</tr>
 										</c:forEach>
 									</c:if>
 
-</tbody>
+								</tbody>
 
-								</table>
-							</div>
+							</table>
 						</div>
 					</div>
 				</div>
+
 			</section>
 			<!-- /.content -->
 		</div>
@@ -130,21 +129,21 @@
 	<!-- ./wrapper -->
 	<jsp:include page="${request.contextPath}/js"></jsp:include>
 	<script>
-	$(document).ready(function() {
-		$('#btnDetay').click(function(){
-			var sinif = $('#sinifDetay').serialize();
-			$.ajax({
-				url :'<s:url value="/sinifdetay"></s:url>',
-				type :"post",
-				data : sinif,
-				success : function(sonuc){
-					alert(sonuc);
-				}
-				
+		$(document).ready(function() {
+			$('#btnDetay').click(function() {
+				var sinif = $('#sinifDetay').serialize();
+				$.ajax({
+					url : '<s:url value="/sinifdetay"></s:url>',
+					type : "post",
+					data : sinif,
+					success : function(sonuc) {
+						alert(sonuc);
+					}
+
+				});
 			});
-	});
-	});
-</script>
+		});
+	</script>
 
 </body>
 </html>

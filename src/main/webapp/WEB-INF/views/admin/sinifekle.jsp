@@ -64,7 +64,7 @@
 											<option>Seviye 3</option>
 											<option>Seviye 4</option>
 										</select>
-									
+									</div>
 									<!-- /.box-body -->
 								</form>
 							</div>
@@ -83,6 +83,7 @@
 							</div>
 						</div>
 						<!-- /.box-body -->
+					</div>
 					</div>
 			</section>
 			<!-- /.content -->

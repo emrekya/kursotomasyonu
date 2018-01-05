@@ -95,6 +95,13 @@ public class PersonelController {
 
 	}
 
+	
+	public String personelaramalistesi() {
+		
+		
+		return "";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/personeltcara", method = RequestMethod.POST)
 	public String personeltcara(String personelTC) {
@@ -143,9 +150,6 @@ public class PersonelController {
 
 			st.append("</tr>");
 
-			// st.append("<tr> <td></td> <td>324567865</td> <td>sdfg</td> <td>dsfg</td>
-			// <td>345354345</td> <td>sdfdsfsdfe45</td> <td>sdfsdfsd</td> <td>ilkokul</td>
-			// </tr>");
 		}
 
 		return personelaramalistesi(query);
@@ -365,7 +369,7 @@ public class PersonelController {
 		System.out.println(query);
 		try {
 
-			int aktiflik = db.baglan().executeUpdate(query);
+			db.baglan().executeUpdate(query);
 
 		} catch (Exception e) {
 
@@ -382,7 +386,7 @@ public class PersonelController {
 		System.out.println(query);
 		try {
 
-			int aktiflik = db.baglan().executeUpdate(query);
+			db.baglan().executeUpdate(query);
 		} catch (Exception e) {
 
 		} finally {

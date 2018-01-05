@@ -54,155 +54,159 @@
 							<!-- /.box-header -->
 							<div class="box-body">
 								<form role="form" id="frmPersonel">
-								<c:if test="${ not empty perduzenle }">
-									<div class="col-xs-4">
-										<div class="form-group">
-											<label for="#">Tc Kimlik</label> <input type="text"
-											value='<c:out value="${ perduzenle.getPerTC() }"></c:out>'
-												name="perTC" id="perTC" placeholder="Tc Kimlik"
-												class="form-control" data-inputmask='"mask":"99999999999"'
-												data-mask autocomplete=off />
+									<c:if test="${ not empty perduzenle }">
+										<div class="col-xs-4">
+											<div class="form-group">
+												<label for="#">Tc Kimlik</label> <input type="text"
+													value='<c:out value="${ perduzenle.getPerTC() }"></c:out>'
+													name="perTC" id="perTC" placeholder="Tc Kimlik"
+													class="form-control" data-inputmask='"mask":"99999999999"'
+													data-mask autocomplete=off disabled />
 
-										</div>
-										<div class="form-group">
-											<label for="#">Giriş Şifresi</label> <input type="password"
-												name="perSifre" 
-												value='<c:out value="${ perduzenle.getPerSifre() }"></c:out>'
-												id="perParola" placeholder="Giriş Şifresi"
-												class="form-control" autocomplete=off />
+											</div>
+											<div class="form-group">
+												<label for="#">Giriş Şifresi</label> <input type="password"
+													name="perSifre"
+													value='<c:out value="${ perduzenle.getPerSifre() }"></c:out>'
+													id="perParola" placeholder="Giriş Şifresi"
+													class="form-control" autocomplete=off disabled />
 
-										</div>
-										<div class="form-group">
-											<label for="#">Adı</label> <input type="text" name="perAdi"
-											value='<c:out value="${ perduzenle.getPerAdi() }"></c:out>'
-												placeholder="Adı" class="form-control" />
-										</div>
-										<div class="form-group">
-											<label for="#">Soyadı</label> <input type="text"
-											value='<c:out value="${ perduzenle.getPerSoyadi() }"></c:out>'
-												name="perSoyadi" placeholder="Soyadı" class="form-control" />
-										</div>
-										<input type="hidden" name="perID" value='<c:out value="${ perduzenle.getPerID() }"></c:out>'>
-										<div class="form-group">
-											<label>Doğum Tarihi:</label>
+											</div>
+											<div class="form-group">
+												<label for="#">Adı</label> <input type="text" name="perAdi"
+													value='<c:out value="${ perduzenle.getPerAdi() }"></c:out>'
+													placeholder="Adı" class="form-control" disabled />
+											</div>
+											<div class="form-group">
+												<label for="#">Soyadı</label> <input type="text"
+													value='<c:out value="${ perduzenle.getPerSoyadi() }"></c:out>'
+													name="perSoyadi" placeholder="Soyadı" class="form-control"
+													disabled />
+											</div>
+											<input type="hidden" name="perID"
+												value='<c:out value="${ perduzenle.getPerID() }"></c:out>'>
+											<div class="form-group">
+												<label>Doğum Tarihi:</label>
 
-											<div class="input-group date">
-												<div class="input-group-addon">
-													<i class="fa fa-calendar"></i>
+												<div class="input-group date">
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+													<input type="text"
+														value='<c:out value="${ perduzenle.getPerDogumTarihi() }"></c:out>'
+														class="form-control pull-right" name="perDogumTarihi"
+														id="datepicker" data-inputmask="'alias': 'dd/mm/yyyy'"
+														data-mask="" disabled />
 												</div>
-												<input type="text"
-												value='<c:out value="${ perduzenle.getPerDogumTarihi() }"></c:out>'
-												 class="form-control pull-right"
-													name="perDogumTarihi" id="datepicker"
-													data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+
+												<!-- /.input group -->
 											</div>
 
-											<!-- /.input group -->
-										</div>
 
+											<!-- phone mask -->
+											<div class="form-group">
+												<label>Telefon</label>
 
-										<!-- phone mask -->
-										<div class="form-group">
-											<label>Telefon</label>
-
-											<div class="input-group">
-												<div class="input-group-addon">
-													<i class="fa fa-phone"></i>
+												<div class="input-group">
+													<div class="input-group-addon">
+														<i class="fa fa-phone"></i>
+													</div>
+													<input type="text" class="form-control" name="perTelefon"
+														value='<c:out value="${ perduzenle.getPerTelefon() }"></c:out>'
+														data-inputmask='"mask":"(999) 999-9999"' data-mask
+														disabled />
 												</div>
-												<input type="text" class="form-control" name="perTelefon"
-												value='<c:out value="${ perduzenle.getPerTelefon() }"></c:out>'
-													data-inputmask='"mask":"(999) 999-9999"' data-mask />
+												<!-- /.input group -->
 											</div>
-											<!-- /.input group -->
-										</div>
-										<!-- /.form group -->
-										<div class="form-group">
-											<label for="#">E-Mail</label>
-											<div class="input-group date">
-												<div class="input-group-addon">
-													<i class="fa fa-envelope"></i>
+											<!-- /.form group -->
+											<div class="form-group">
+												<label for="#">E-Mail</label>
+												<div class="input-group date">
+													<div class="input-group-addon">
+														<i class="fa fa-envelope"></i>
+													</div>
+													<input type="text" name="perEMail"
+														value='<c:out value="${ perduzenle.getPerEMail() }"></c:out>'
+														placeholder="E-Mail" class="form-control" disabled />
 												</div>
-												<input type="text" name="perEMail" 
-												value='<c:out value="${ perduzenle.getPerEMail() }"></c:out>'
-												 placeholder="E-Mail"
-													class="form-control" />
 											</div>
 										</div>
-									</div>
 
-									<div class="col-xs-4">
-										<div class="form-group">
-											<label for="#">Öğretim Durumu</label> <input type="text"
-												name="perOgrenimDurumu"  value='<c:out value="${ perduzenle.getPerOgrenimDurumu() }"></c:out>'
-												 placeholder="Öğretim Durumu"
-												class="form-control" />
-										</div>
-										<div class="form-group">
-											<label for="#">Bitirdiği Okul</label> <input type="text"
-											value='<c:out value="${ perduzenle.getPerBitirdigiOkul() }"></c:out>'
-												name="perBitirdigiOkul" placeholder="Bitirdiği Okul"
-												class="form-control" />
-										</div>
-										<div class="form-group">
-											<label for="#">Branş</label> <input type="text"
-											value='<c:out value="${ perduzenle.getPerBrans() }"></c:out>'
-												name="perBrans" placeholder="Branş" class="form-control" />
-										</div>
-										<div class="form-group">
-											<label for="#">Banka Adı</label> <input type="text"
-											value='<c:out value="${ perduzenle.getPerBankaAdi() }"></c:out>'
-												name="perBankaAdi" placeholder="Banka Adı"
-												class="form-control" />
-										</div>
-										<div class="form-group">
-											<label for="#">IBAN </label> <input type="text"
-											value='<c:out value="${ perduzenle.getPerIBAN() }"></c:out>'
-												name="perIBAN" placeholder="IBAN" class="form-control" />
-										</div>
-										<div class="form-group">
-											<label for="#">Maaş </label> <input type="text"
-											value='<c:out value="${ perduzenle.getPerMaas() }"></c:out>'
-												name="perMaas" placeholder="Maaş" class="form-control" />
-										</div>
+										<div class="col-xs-4">
+											<div class="form-group">
+												<label for="#">Öğretim Durumu</label> <input type="text"
+													name="perOgrenimDurumu"
+													value='<c:out value="${ perduzenle.getPerOgrenimDurumu() }"></c:out>'
+													placeholder="Öğretim Durumu" class="form-control" disabled />
+											</div>
+											<div class="form-group">
+												<label for="#">Bitirdiği Okul</label> <input type="text"
+													value='<c:out value="${ perduzenle.getPerBitirdigiOkul() }"></c:out>'
+													name="perBitirdigiOkul" placeholder="Bitirdiği Okul"
+													class="form-control" disabled />
+											</div>
+											<div class="form-group">
+												<label for="#">Branş</label> <input type="text"
+													value='<c:out value="${ perduzenle.getPerBrans() }"></c:out>'
+													name="perBrans" placeholder="Branş" class="form-control"
+													disabled />
+											</div>
+											<div class="form-group">
+												<label for="#">Banka Adı</label> <input type="text"
+													value='<c:out value="${ perduzenle.getPerBankaAdi() }"></c:out>'
+													name="perBankaAdi" placeholder="Banka Adı"
+													class="form-control" disabled />
+											</div>
+											<div class="form-group">
+												<label for="#">IBAN </label> <input type="text"
+													value='<c:out value="${ perduzenle.getPerIBAN() }"></c:out>'
+													name="perIBAN" placeholder="IBAN" class="form-control"
+													disabled />
+											</div>
+											<div class="form-group">
+												<label for="#">Maaş </label> <input type="text"
+													value='<c:out value="${ perduzenle.getPerMaas() }"></c:out>'
+													name="perMaas" placeholder="Maaş" class="form-control"
+													disabled />
+											</div>
 
 
-									</div>
+										</div>
 
-									<div class="col-xs-4">
-										<!--  <div class="form-group">
-
-											<img class="profile-user-img img-responsive img-regtangle"
-												style="width: 200px; height: 200px" src="#"
-												alt="User profile picture">
-										</div>-->
-										<div class="form-group">
+										<div class="col-xs-4">
 											<label>Personel Resim</label>
-											<div id="acil" style="">
-												<iframe id="resim" src=""
-													style="width: 100%; height: 350px;" frameborder="0"></iframe>
+											<c:choose>
+												<c:when test="${ not empty perduzenle.getPerResimAdi() }">
+													<div class="form-group">
+														<img class="profile-user-img img-responsive img-regtangle"
+															style="width: 200px; height: 200px"
+															src="http://localhost:8080/resim/server/php/files/<c:out value="${ perduzenle.getPerTC() }"></c:out>/<c:out value="${ perduzenle.getPerResimAdi() }"></c:out>"
+															alt="User profile picture">
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="form-group">
+														<img class="profile-user-img img-responsive img-regtangle"
+															style="width: 200px; height: 200px"
+															src='<c:out value="/kursotomasyonu/resources/dist/img/emptyhoto.png"></c:out>'
+															alt="User profile picture">
+													</div>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="col-xs-8">
+													<div class="form-group">
+														<label for="#">Adres </label>
+														<textarea name="perAdres" placeholder="Adres"
+															class="form-control" rows="3" disabled><c:out
+																value="${ perduzenle.getPerAdres() }"></c:out></textarea>
+													</div>
+												</div>
 
 											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="col-xs-4">
-												<div class="form-group">
-													<label for="#">Adres </label>
-													<textarea name="perAdres" placeholder="Adres"
-													
-														class="form-control" rows="3"><c:out value="${ perduzenle.getPerAdres() }"></c:out></textarea>
-												</div>
-											</div>
-											<div class="col-xs-4">
-												<div class="form-group">
-													<br> <br> <br>
-													<button type="button" id="btnGucellePersonel"
-														class="btn btn-block btn-success">Kaydet</button>
-												</div>
-											</div>
-										</div>
-									</div>
 									</c:if>
 								</form>
 
@@ -228,37 +232,5 @@
 
 	<jsp:include page="${request.contextPath}/js"></jsp:include>
 
-
-
-	<!-- Page script-->
-	<script>
-		$(function() {
-			//Date picker
-			$('#datepicker').datepicker({
-				autoclose : true
-			})
-		})
-	</script>
-	<script>
-	$('#btnGucellePersonel')
-	.click(
-			function() {
-				var personel = $('#frmPersonel')
-						.serialize();
-				//ajax
-				$
-						.ajax({
-							url : '<s:url value="/personelguncellekaydet"></s:url>',
-							type : "post",
-							data : personel,
-							success : function(
-									yanit) {
-								alert(yanit);
-							}
-						});
-
-			});
-	</script>
-	</script>
 </body>
 </html>
