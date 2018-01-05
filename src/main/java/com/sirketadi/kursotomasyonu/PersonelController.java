@@ -12,25 +12,41 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;	
+import org.springframework.web.bind.annotation.ResponseBody;
 import Properties.Personel;
 import Utils.DB;
-
 
 @Controller
 public class PersonelController {
 	DB db = new DB();
+
 	@RequestMapping(value = "/personelekleme", method = RequestMethod.GET)
 	public String home(HttpServletRequest req, Model model) {
-		
-		String[] path=PersonelController.class.getProtectionDomain().getCodeSource().getLocation().getPath().split("KursOtomasyon");
-		String imgPath=	path[0]+"KursOtomasyon/resources/dist/img/";
+
+		String[] path = PersonelController.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+				.split("KursOtomasyon");
+		String imgPath = path[0] + "KursOtomasyon/resources/dist/img/";
 		model.addAttribute("imgPath", imgPath.substring(1));
-	
-	        
-			return GirisController.yetkiDenetim(req, "/personelekleme");
-	
-		
+
+		return GirisController.yetkiDenetim(req, "/personelekleme");
+
+	}
+
+	// silme işlemi
+	@RequestMapping(value = "/personelsilme/{id}", method = RequestMethod.GET)
+	public String aracsil(@PathVariable(value = "id") String id, Model model) {
+		try {
+			DB db = new DB();
+			String q = "delete from personel where perid ='" + id + "'";
+			int sil = db.baglan().executeUpdate(q);
+			if (sil > 0) {
+				return "redirect:/personellistesi";
+			}
+		} catch (Exception e) {
+			System.err.println("Silme Hatası : " + e);
+		}
+
+		return "redirect:/kullanici";
 	}
 
 	@ResponseBody
@@ -47,20 +63,20 @@ public class PersonelController {
 		} else {
 			return "Kayıt yapma Yetkiniz yok";
 		}
-		String query = "INSERT INTO `personel` (`perid`, `pertc`, `peradi`, `persoyadi`, `perdogumtarihi`, `pertelefon`, `peremail`, `peradres`, `perogrenimdurumu`, `perbitirdigiokul`, `perbrans`, `perbankaadi`, `periban`,`permaas`, `pergorev`,`persifre`) VALUES (NULL, '"
+		String query = "INSERT INTO `personel` (`perid`, `pertc`, `peradi`, `persoyadi`, `perdogumtarihi`, `pertelefon`, `peremail`, `peradres`, `perogrenimdurumu`, `perbitirdigiokul`, `perbrans`, `perbankaadi`, `periban`,`permaas`, `pergorev`,`persifre`,`peraktiflik`) VALUES (NULL, '"
 				+ personel.getPerTC() + "', '" + personel.getPerAdi() + "', '" + personel.getPerSoyadi() + "', '"
 				+ personel.getPerDogumTarihi() + "', '" + personel.getPerTelefon() + "', '" + personel.getPerEMail()
 				+ "', '" + personel.getPerAdres() + "', '" + personel.getPerOgrenimDurumu() + "', '"
 				+ personel.getPerBitirdigiOkul() + "', '" + personel.getPerBrans() + "', '" + personel.getPerBankaAdi()
 				+ "', '" + personel.getPerIBAN() + "','" + personel.getPerMaas() + "','" + personelGorev + "','"
-				+ personel.getPerSifre() + "');";
+				+ personel.getPerSifre() + "',true);";
 		System.out.println(query);
 		try {
 			int ekle = db.baglan().executeUpdate(query);
 			if (ekle > 0) {
-				return "Kayıt Başarılı";
+				return "true";
 			} else {
-				return "Kayıt Hatası";
+				return "false";
 			}
 		} catch (Exception e) {
 			return "Vt Kayıt Hatası : " + e;
@@ -72,20 +88,11 @@ public class PersonelController {
 
 	@RequestMapping(value = "/personellistesi", method = RequestMethod.GET)
 	public String personellistesi(HttpServletRequest req, Model model) {
-		String yetki = "" + req.getSession().getAttribute("gorev");
-		String query="";
-		if (yetki.equals("Admin")) {
-			 query = "Select * from personel";
-		} else if (yetki.equals("Müdür")) {
-			query = "Select * from personel where pergorev != 'Admin'";
-		} else if (yetki.equals("Müdür Yardımcısı")) {
-			 query = "Select * from personel where pergorev != 'Admin' and pergorev != 'Müdür'";
-		}
-		
+		String query = "Select * from personel";
 		model.addAttribute("personelListesi", perListesi(query));
-		
-			return GirisController.yetkiDenetim(req,"/personellistesi");
-		
+
+		return GirisController.yetkiDenetim(req, "/personellistesi");
+
 	}
 
 	@ResponseBody
@@ -113,7 +120,7 @@ public class PersonelController {
 			// </tr>");
 		}
 
-		return st.toString();
+		return personelaramalistesi(query);
 	}
 
 	@ResponseBody
@@ -141,7 +148,7 @@ public class PersonelController {
 			// </tr>");
 		}
 
-		return st.toString();
+		return personelaramalistesi(query);
 	}
 
 	private List<Personel> perListesi(String query) {
@@ -172,12 +179,49 @@ public class PersonelController {
 				per.setPerGorev(rs.getString("pergorev"));
 				per.setPerSifre(rs.getString("persifre"));
 				per.setPerResimAdi(rs.getString("perresimadi"));
+				per.setPerAktiflik(rs.getString("peraktiflik"));
 				lsPersonel.add(per);
 			}
 		} catch (Exception e) {
 			System.err.println("Vt Per Listeleme Hatası");
 		}
 		return lsPersonel;
+	}
+
+	@RequestMapping(value = "/personeldetay/{id}", method = RequestMethod.GET)
+	public String personeldetay(@PathVariable(value = "id") String id, Model model, HttpServletRequest req) {
+
+		String query = "select * from personel where perid=" + id;
+		DB db = new DB();
+		Personel per = new Personel();
+		try {
+			ResultSet rs = db.baglan().executeQuery(query);
+			rs.next();
+
+			per.setPerID(rs.getString("perid"));
+			per.setPerTC(rs.getString("pertc"));
+			per.setPerAdi(rs.getString("peradi"));
+			per.setPerSoyadi(rs.getString("persoyadi"));
+			per.setPerDogumTarihi(rs.getString("perdogumtarihi"));
+			per.setPerTelefon(rs.getString("pertelefon"));
+			per.setPerEMail(rs.getString("peremail"));
+			per.setPerAdres(rs.getString("peradres"));
+			per.setPerOgrenimDurumu(rs.getString("perogrenimdurumu"));
+			per.setPerBitirdigiOkul(rs.getString("perbitirdigiokul"));
+			per.setPerBrans(rs.getString("perbrans"));
+			per.setPerBankaAdi(rs.getString("perbankaadi"));
+			per.setPerIBAN(rs.getString("periban"));
+			per.setPerMaas(rs.getString("permaas"));
+			per.setPerGorev(rs.getString("pergorev"));
+			per.setPerSifre(rs.getString("persifre"));
+			per.setPerResimAdi(rs.getString("perresimadi"));
+
+		} catch (Exception e) {
+			System.err.println("Vt Per detay Hatası");
+		}
+		model.addAttribute("perduzenle", per);
+
+		return GirisController.yetkiDenetim(req, "/personeldetay");
 	}
 
 	@RequestMapping(value = "/personelguncelleme/{id}", method = RequestMethod.GET)
@@ -246,7 +290,6 @@ public class PersonelController {
 
 	}
 
-	
 	@RequestMapping(value = "/personelbilgisi", method = RequestMethod.GET)
 	public String personelbilgisi(Model model, HttpServletRequest req) {
 		String kullaniciid = "" + req.getSession().getAttribute("kullanici");
@@ -274,24 +317,23 @@ public class PersonelController {
 			per.setPerGorev(rs.getString("pergorev"));
 			per.setPerSifre(rs.getString("persifre"));
 			per.setPerResimAdi(rs.getString("perresimadi"));
-			
 
 		} catch (Exception e) {
 			System.err.println("Vt Per Listeleme Hatası");
 		}
-		req.getSession().setAttribute("resimadi", per.getPerResimAdi());
 		model.addAttribute("perduzenle", per);
+		System.out.println("sdasdasd");
 		return GirisController.denetim(req, "admin/personelbilgisi");
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/personelbilgisiguncelle", method = RequestMethod.POST)
-	public String personelbilgisiguncelle(Personel personel,HttpServletRequest req) {
+	public String personelbilgisiguncelle(Personel personel, HttpServletRequest req) {
 		String kullaniciid = "" + req.getSession().getAttribute("kullanici");
 		DB db = new DB();
-		String query = "UPDATE `personel` SET `pertelefon` = '" + personel.getPerTelefon() + "', `peremail` = '" + personel.getPerEMail()
-				+ "', `peradres` = '" + personel.getPerAdres()+"',`persifre` = '" + personel.getPerSifre() + "' WHERE `personel`.`perid` = "
-				+ kullaniciid;
+		String query = "UPDATE `personel` SET `pertelefon` = '" + personel.getPerTelefon() + "', `peremail` = '"
+				+ personel.getPerEMail() + "', `peradres` = '" + personel.getPerAdres() + "',`persifre` = '"
+				+ personel.getPerSifre() + "' WHERE `personel`.`perid` = " + kullaniciid;
 		System.out.println(query);
 		try {
 
@@ -308,18 +350,71 @@ public class PersonelController {
 		}
 
 	}
-	
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/resimGuncelle", method = RequestMethod.POST)
 	public String resimGuncelle(HttpServletRequest req) {
 		return "geldim";
 
 	}
-	
-	
-	
-	
-	
-	
+
+	@RequestMapping(value = "/personeldurumaktif/{id}", method = RequestMethod.GET)
+	public String personeldurumaktif(HttpServletRequest req, @PathVariable(value = "id") String id) {
+		DB db = new DB();
+		String query = "UPDATE `personel` SET `peraktiflik` = false where perid=" + id;
+		System.out.println(query);
+		try {
+
+			int aktiflik = db.baglan().executeUpdate(query);
+
+		} catch (Exception e) {
+
+		} finally {
+			db.kapat();
+		}
+		return "redirect:/personellistesi";
+	}
+
+	@RequestMapping(value = "/personeldurumpasif/{id}", method = RequestMethod.GET)
+	public String personeldurumpasif(HttpServletRequest req, @PathVariable(value = "id") String id) {
+		DB db = new DB();
+		String query = "UPDATE `personel` SET `peraktiflik` = true where perid=" + id;
+		System.out.println(query);
+		try {
+
+			int aktiflik = db.baglan().executeUpdate(query);
+		} catch (Exception e) {
+
+		} finally {
+			db.kapat();
+		}
+		return "redirect:/personellistesi";
+
+	}
+
+	public String personelaramalistesi(String query) {
+		List<Personel> lsPersonel = perListesi(query);
+		StringBuilder st = new StringBuilder();
+		int i = 0;
+		for (Personel per : lsPersonel) {
+			st.append("<tr>");
+			st.append("<td>" + i + "</td>");
+			st.append("<td>" + per.getPerSira() + "</td>");
+			st.append("<td>" + per.getPerTC() + "</td>");
+			st.append("<td>" + per.getPerAdi() + "</td>");
+			st.append("<td>" + per.getPerSoyadi() + "</td>");
+			st.append("<td>" + per.getPerTelefon() + "</td>");
+			st.append("<td>" + per.getPerBrans() + "</td>");
+			st.append("<td>" + per.getPerGorev() + "</td>");
+			st.append("<td><a href='personeldetay/" + per.getPerID() + "' class='btn btn-warning'>Detay</a></td>");
+			st.append("<td><a href='personelguncelleme/" + per.getPerID() + "' class='btn btn-warning'>Düzenle</a></td>");
+			
+			
+			st.append("</tr>");
+
+		}
+
+		return st.toString();
+	}
+
 }

@@ -1,8 +1,9 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -155,17 +156,19 @@
 									</div>
 
 									<div class="col-xs-4">
-										<!--  <div class="form-group">
+										<label>Personel Resim</label>
+										<div class="form-group">
 
 											<img class="profile-user-img img-responsive img-regtangle"
-												style="width: 200px; height: 200px" src="#"
+												style="width: 200px; height: 200px"
+												src='<c:out value="resources/dist/img/emptyhoto.png"></c:out>'
 												alt="User profile picture">
-										</div>-->
+										</div>
 										<div class="form-group">
-											<label>Personel Resim</label>
+
 											<div id="acil" style="">
 												<iframe id="resim" src=""
-													style="width: 100%; height: 350px;" frameborder="0"></iframe>
+													style="width: 100%; height: 150px;" frameborder="0"></iframe>
 
 											</div>
 										</div>
@@ -181,6 +184,8 @@
 												</div>
 											</div>
 											<div class="col-xs-4">
+											<label id="lblResimBilgi">Resim yüklemek için önce
+											kaydı tamamlamalısınız! </label>
 												<div class="form-group">
 													<br> <br> <br>
 													<button type="button" id="btnKaydet"
@@ -221,48 +226,47 @@
 			$('#datepicker').datepicker({
 				autoclose : true
 			})
-
-		})
+			$('[data-mask]').inputmask()
+			//Datemask dd/mm/yyyy
+			$('#datemask').inputmask('dd/mm/yyyy', {
+				'placeholder' : 'dd/mm/yyyy'
+			})
+		});
 	</script>
 	<script>
-		$(document)
-				.ready(
+		$('#btnKaydet')
+				.click(
 						function() {
+							var personel = $('#frmPersonel').serialize();
 
-							// perTC değiştiğinde yapılacak işlemler
-							$('#perTC')
-									.change(
-											function() {
+							//ajax
+							$
+									.ajax({
+
+										url : '<s:url value="/personelkaydet"></s:url>',
+										type : "post",
+										data : personel,
+										success : function(yanit) {
+											alert(yanit);
+											if (yanit) {
+												alert($('#datepicker1').val());
+												$('#lblResimBilgi')
+														.val(
+																"Kayıt Başarılı Resim Yükleyebilirsiniz")
+												$("#lblResimBilgi")
+														.html(
+																"Kayıt Başarılı Resim Yükleyebilirsiniz")
+
+												alert("Kayıt Başarılı");
 												var tc = $('#perTC').val();
-												var yaz = "http://localhost:8080/resim/index.php?resim_id="
+												var yaz = 'http://localhost:8080/resim/index.php?resim_id='
 														+ tc;
 												$('#resim').attr('src', yaz);
 												$('#acil').show();
-											});
 
-							$('#btnKaydet')
-									.click(
-											function() {
-												var personel = $('#frmPersonel')
-														.serialize();
-												//ajax
-												$
-														.ajax({
-															url : '<s:url value="/personelkaydet"></s:url>',
-															type : "post",
-															data : personel,
-															success : function(
-																	yanit) {
-																alert(yanit);
-															}
-														});
-
-											});
-							$('[data-mask]').inputmask()
-							//Datemask dd/mm/yyyy
-							$('#datemask').inputmask('dd/mm/yyyy', {
-								'placeholder' : 'dd/mm/yyyy'
-							})
+											}
+										}
+									});
 						});
 	</script>
 </body>

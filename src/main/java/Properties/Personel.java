@@ -17,6 +17,13 @@ public class Personel {
 	private String perIBAN;
 	private String perMaas;
 	private String perResimAdi;
+	private String perAktiflik;
+	public String getPerAktiflik() {
+		return perAktiflik;
+	}
+	public void setPerAktiflik(String perAktiflik) {
+		this.perAktiflik = perAktiflik;
+	}
 	public String getPerResimAdi() {
 		return perResimAdi;
 	}
