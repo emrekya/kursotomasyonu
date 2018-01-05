@@ -258,7 +258,7 @@ public class OgrenciController {
 				+ ogr.getOgrDogumTarihi() + "', '" + ogr.getOgrTelefon() + "', '" + ogr.getOgrEMail() + "', '"
 				+ ogr.getOgrOkul() + "', '" + ogr.getOgrBolum() + "', '" + ogr.getOgrDurumu() + "', '"
 				+ ogr.getOgrAdres() + "', '" + ogr.getOgrSinifAdi() + "','" + ogr.getOgrKayitTarihi() + "','"
-				+ dateFormat.format(date) + "','" + ogr.getOgrResimAdi() + "')";
+				+ dateFormat.format(date) + "'," + ogr.getOgrResimAdi() + ")";
 		System.out.println(querymezunekle);
 		try {
 			int ekle = db.baglan().executeUpdate(querymezunekle);
@@ -309,7 +309,6 @@ public class OgrenciController {
 			st.append("<td>" + ogr.getOgrDurumu() + "</td>");
 			st.append("<td>" + ogr.getOgrSinifAdi() + "</td>");
 			st.append("<td><a href='ogrencidetay/" + ogr.getOgrID() + "' class='btn btn-warning'>Detay</a></td>");
-			//st.append("<td><a href='ogrenciguncelleme/" + ogr.getOgrID() + "' class='btn btn-warning'>Düzenle</a></td>");
 			st.append("<td><a href='ogrencimezunet/"+ ogr.getOgrID()+ "' class='btn btn-success'>Mezun Et</a></td>");
 			st.append("</tr>");
 
@@ -342,4 +341,7 @@ public class OgrenciController {
 				+ " where ogrsinifadi = '" + SinifAdi + "%'";
 		return ogrencimezunolacakaramalistesi(query);
 	}
+	
+	
+	
 }

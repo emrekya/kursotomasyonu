@@ -19,106 +19,84 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>
-				Sınıf Listesi <small>Kurs Otomasyon</small>
-			</h1>
-			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-dashboard"></i> Yönetim</a></li>
-				<li class="active">Yönetime Git</li>
-			</ol>
+				<h1>
+					Sınıf Listesi <small>Kurs Otomasyon</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Yönetim</a></li>
+					<li class="active">Yönetime Git</li>
+				</ol>
 			</section>
 			<!-- /.col (left) -->
 
 			<!-- Main content -->
 			<section class="content">
-			<div class="row">
+				<div class="row">
 
-				<div class="col-lg-12">
-					<div class="box">
-						<div class="box-header with-border">
-							<h3 class="box-title">Sınıf Listesi</h3>
-						</div>
-						<!-- /.box-header -->
-						<div class="box-body">
-							<table class="table table-striped">
-								<tbody>
-									<tr>
-										<th style="width: 10px">Sıra</th>
-										<th>Sınıf Adı</th>
-										<th>Öğrenci Sayısı</th>
-										<th>Seviye</th>
+					<div class="col-md-12">
+						<div class="box box-info">
+							<div class="box-header with-border">
+								<h3 class="box-title">Sınıf Listesi</h3>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<table class="table table-striped">
+									<tbody>
+										<tr>
+											<th style="width: 10px">Sıra</th>
+											<th>Sınıf Adı</th>
+											<th>Öğrenci Sayısı</th>
+											<th>Seviye</th>
 
-									</tr>
-									<c:if test="${not empty lsSiniflar }">
-										<c:forEach items="${lsSiniflar}" var="snf">
-											<tr>
+										</tr>
+										<c:if test="${not empty lsSiniflar }">
+											<c:forEach items="${lsSiniflar}" var="snf">
+												<tr>
 
-												<td><c:out value="${snf.getSinifSira()}"></c:out></td>
-												<td><c:out value="${snf.getSinifAdi()}"></c:out></td>
-												<td><c:out value="${snf.getOgrenciSayisi() }"></c:out></td>
-												<td><c:out value="${snf.getSinifSeviye() }"></c:out></td>
-												<%
+													<td><c:out value="${snf.getSinifSira()}"></c:out></td>
+													<td><c:out value="${snf.getSinifAdi()}"></c:out></td>
+													<td><c:out value="${snf.getOgrenciSayisi() }"></c:out></td>
+													<td><c:out value="${snf.getSinifSeviye() }"></c:out></td>
+													<%
 													if (session.getAttribute("gorev").equals("Admin") || session.getAttribute("gorev").equals("Müdür")
 																	|| session.getAttribute("gorev").equals("Müdür Yardımcısı")) {
 												%>
-												<td><a
-													href='<s:url value="/sinifguncelleme/${ snf.getSinifId() }"></s:url>'
-													class="btn btn-warning">Düzenle</a></td>
-												<%
+													<td><a
+														href='<s:url value="/sinifguncelleme/${ snf.getSinifId() }"></s:url>'
+														class="btn btn-warning">Düzenle</a></td>
+													<%
 													}
 												%>
-												<td><a
-													href='<s:url value="/sinifdetay/${ snf.getSinifId() }"></s:url>'
-													class="btn btn-warning">Detay</a></td>
+													<td><a
+														href='<s:url value="/sinifdetay/${ snf.getSinifId() }"></s:url>'
+														class="btn btn-warning">Detay</a></td>
 
 
-											</tr>
+												</tr>
 
-										</c:forEach>
+											</c:forEach>
 
-									</c:if>
+										</c:if>
 
 
-								</tbody>
-							</table>
-						</div>
-
-						<!-- /.box-body -->
-						<div class="box-footer clearfix">
-							<ul class="pagination pagination-sm no-margin pull-right">
-								<li><a href="#">«</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">»</a></li>
-							</ul>
+									</tbody>
+								</table>
+							</div>
 
 						</div>
+						<!-- /.box -->
 					</div>
-
-					<!-- /.box -->
-
-
-					<!-- /.box -->
 				</div>
-
-
-
-
-
-
-
-
-			</div>
-			<!-- /.row --> </section>
+				<!-- /.row -->
+			</section>
 			<!-- /.content -->
 
 		</div>
 		<!-- /.content-wrapper -->
 
 
-		<jsp:include page="${request.contextPath}/footer"></jsp:include>
-
+		
+	<jsp:include page="${request.contextPath}/footer"></jsp:include>
 	</div>
 	<!-- ./wrapper -->
 

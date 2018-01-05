@@ -17,21 +17,10 @@
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
+      
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">İŞLEMLER</li>
         <% if(session.getAttribute("gorev").equals("Admin") || session.getAttribute("gorev").equals("Müdür") ||
         		session.getAttribute("gorev").equals("Müdür Yardımcısı")){ %>
     
@@ -68,6 +57,7 @@
         <% if(session.getAttribute("gorev").equals("Admin") || session.getAttribute("gorev").equals("Müdür") ||
         		session.getAttribute("gorev").equals("Müdür Yardımcısı")){ %>
             <li><a href='<s:url value="/ogrencimezun"></s:url>'><i class="fa fa-circle-o"></i> Öğrenci Mezuniyet İşlemleri</a></li>
+            <li><a href='<s:url value="/ogrencimezunlar"></s:url>'><i class="fa fa-circle-o"></i> Mezun Öğrenciler</a></li>
           </ul>
         </li>
         <li class="treeview">

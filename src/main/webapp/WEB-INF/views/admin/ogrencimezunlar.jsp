@@ -29,7 +29,7 @@
 			<section class="content-header">
 
 				<h1>
-					Öğrenci Mezuniyet İşlemleri <small>Kurs Otomasyon</small>
+					Öğrenci Listeleme <small>Spring MVC</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Yönetim</a></li>
@@ -86,7 +86,7 @@
 										<c:if test="${not empty lsSiniflar }">
 
 											<select name="SinifAdi" class="form-control" id="SinifAdi">
-												<option value="">Sınıf Seçiniz</option>
+											<option value="">Sınıf Seçiniz</option>
 												<c:forEach items="${lsSiniflar}" var="snf">
 
 													<option value=<c:out value="${snf.getSinifId()}"></c:out>><c:out
@@ -119,45 +119,38 @@
 
 							<!-- /.box-header -->
 							<div class="box-body">
-							
-							<form action='<c:out value="ogrencisecimmezun"></c:out>' method="post">
 								<table class="table table-bordered">
 									<tr>
-										<th style="width: 10px">Seçim</th>
+									
 										<th style="width: 10px">Sıra</th>
 										<th>TC</th>
 										<th>Adı</th>
 										<th>Soyadı</th>
 										<th>Doğum Tarihi</th>
 										<th>Telefon</th>
-										<th style="width: 70px">Öğrenim Durumu</th>
+										<th>EMail</th>
+										<th>Öğrenim Durumu</th>
 										<th>Sınıfı</th>
 										<th colspan=2>İşlemler</th>
-
+										
 									</tr>
-									
 									<tbody id="ekleYaz">
 										<c:if test="${ not empty lsOgrenci }">
 											<c:forEach items="${ lsOgrenci }" var="ogr">
 												<tr>
-													<td><input type="checkbox" name="mezunoldu"
-														value='<c:out value="${ ogr.getOgrID() }" ></c:out>'>
-													</td>
+
 													<td><c:out value="${ ogr.getOgrSira() }"></c:out></td>
 													<td><c:out value="${ ogr.getOgrTC() }"></c:out></td>
 													<td><c:out value="${ ogr.getOgrAdi() }"></c:out></td>
 													<td><c:out value="${ ogr.getOgrSoyadi() }"></c:out></td>
 													<td><c:out value="${ ogr.getOgrDogumTarihi() }"></c:out></td>
 													<td><c:out value="${ ogr.getOgrTelefon() }"></c:out></td>
+													<td><c:out value="${ ogr.getOgrEMail() }"></c:out></td>
 													<td><c:out value="${ ogr.getOgrDurumu() }"></c:out></td>
 													<td><c:out value="${ ogr.getOgrSinifAdi() }"></c:out></td>
 													<td><a
-														href='<s:url value="/ogrencidetay/${ ogr.getOgrID() }"></s:url>'
+														href='<s:url value="/ogrencimezundetay/${ ogr.getOgrID() }"></s:url>'
 														class="btn btn-warning">Detay</a></td>
-													<td><a
-														href='<s:url value="/ogrencimezunet/${ ogr.getOgrID() }"></s:url>'
-														class="btn btn-success">Mezun Et</a></td>
-
 												</tr>
 											</c:forEach>
 										</c:if>
@@ -165,9 +158,6 @@
 									</tbody>
 
 								</table>
-																						<button type="submit"
-															class="btn btn-block btn-success">Seçilen Öğrencileri Mezun Et</button>
-								</form>
 							</div>
 						</div>
 					</div>
@@ -193,7 +183,7 @@
 
 			//ajax
 			$.ajax({
-				url : '<s:url value="/ogrencimezunolacaktcara"></s:url>',
+				url : '<s:url value="/ogrencimezuntcara"></s:url>',
 				type : "post",
 				data : {
 					"ogrenciTC" : ogrenciTC
@@ -209,7 +199,7 @@
 			var ogrenciAdi = $('#ogrenciAdi').val();
 			//ajax
 			$.ajax({
-				url : '<s:url value="/ogrencimezunolacakadiara"></s:url>',
+				url : '<s:url value="/ogrencimezunadiara"></s:url>',
 				type : "post",
 				data : {
 					"ogrenciAdi" : ogrenciAdi
@@ -226,7 +216,7 @@
 			var SinifAdi = $('#SinifAdi').val();
 			//ajax
 			$.ajax({
-				url : '<s:url value="/ogrencimezunolacaksinifara"></s:url>',
+				url : '<s:url value="/ogrencimezunsinifara"></s:url>',
 				type : "post",
 				contentType: "application/x-www-form-urlencoded; charset=utf-8",
 		        scriptCharset: "utf-8",

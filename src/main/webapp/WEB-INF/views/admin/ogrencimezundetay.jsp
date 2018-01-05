@@ -28,7 +28,7 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Öğrenci Güncelleme <small>Kurs Otomasyon</small>
+					Mezun Öğrenci Detay <small>Kurs Otomasyon</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Yönetim</a></li>
@@ -41,16 +41,19 @@
 			<section class="content">
 				<div class="row">
 
+
+
+
 					<div class="col-md-12">
 
-						<!-- general form elements  -->
+						<!-- general form elements disabled -->
 						<div class="box box-info">
 							<div class="box-header with-border">
 								<h3 class="box-title">Öğrenci Bilgileri</h3>
 							</div>
 							<!-- /.box-header -->
 							<div class="box-body">
-								<form role="form" id="frmOgrenciDuzenle">
+								<form role="form" id="frmOgrenciDetay">
 									<c:if test="${ not empty ogrDetay }">
 										<div class="col-xs-4">
 											<div class="form-group">
@@ -101,7 +104,7 @@
 													</div>
 													<input type="text"
 														value='<c:out value="${ ogrDetay.getOgrTelefon() }"></c:out>'
-														class="form-control" name="ogrTelefon"
+														class="form-control" name="ogrTelefon" disabled
 														data-inputmask='"mask":"(999) 999-9999"' data-mask>
 												</div>
 												<!-- /.input group -->
@@ -126,19 +129,21 @@
 											<div class="form-group">
 												<label for="#">Okul</label> <input type="text"
 													value='<c:out value="${ ogrDetay.getOgrOkul() }"></c:out>'
-													name="ogrOkul" placeholder="Okul Adı" class="form-control" />
+													name="ogrOkul" placeholder="Okul Adı" disabled
+													class="form-control" />
 											</div>
 
 											<div class="form-group">
 												<label for="#">Bölüm</label> <input type="text"
 													value='<c:out value="${ ogrDetay.getOgrBolum() }"></c:out>'
-													name="ogrBolum" placeholder="Bölüm" class="form-control" />
+													name="ogrBolum" placeholder="Bölüm" disabled
+													class="form-control" />
 											</div>
 											<input type="hidden" name="ogrID"
 												value='<c:out value="${ ogrDetay.getOgrID() }"></c:out>'>
 											<div class="form-group">
 												<label>Öğrenim Durumu</label> <select name="ogrDurumu"
-													class="form-control">
+													disabled class="form-control">
 
 													<c:choose>
 														<c:when test="${ ogrDetay.getOgrDurumu()=='ilkokul' }">
@@ -184,31 +189,12 @@
 
 												</select>
 											</div>
-											<c:if test="${not empty lsSiniflar }">
-												<div class="form-group">
-													<label>Sınıf Adı</label> <select name="ogrSinifAdi"
-														class="form-control">
-														<c:forEach items="${lsSiniflar}" var="snf">
-															<c:choose>
-																<c:when
-																	test="${ ogrDetay.getOgrSinifAdi()==snf.getSinifAdi()}">
-																	<option
-																		value=<c:out value="${snf.getSinifId()}"></c:out>
-																		selected><c:out value="${snf.getSinifAdi()}"></c:out></option>
-																</c:when>
-																<c:otherwise>
-																	<option
-																		value=<c:out value="${snf.getSinifId()}"></c:out>><c:out
-																			value="${snf.getSinifAdi()}"></c:out></option>
-																</c:otherwise>
-															</c:choose>
-
-														</c:forEach>
-													</select>
-												</div>
-
-											</c:if>
-
+											<div class="form-group">
+												<label for="#">Sınıf Adı</label> <input type="text"
+													value='<c:out value="${ ogrDetay.getOgrSinifAdi() }"></c:out>'
+													name="ogrSinif" placeholder="Sınıfı" disabled
+													class="form-control" />
+											</div>
 											<!-- /.form group -->
 											<div class="form-group">
 												<label for="#">E-Mail</label>
@@ -218,7 +204,8 @@
 													</div>
 													<input type="text"
 														value='<c:out value="${ ogrDetay.getOgrEMail() }"></c:out>'
-														name="ogrEMail" placeholder="E-Mail" class="form-control" />
+														name="ogrEMail" placeholder="E-Mail" disabled
+														class="form-control" />
 												</div>
 											</div>
 											<div class="form-group">
@@ -258,34 +245,20 @@
 														</c:otherwise>
 													</c:choose>
 												</div>
-												<div class="form-group">
-
-													<div>
-														<iframe id="resim"
-															src='http://localhost:8080/resimogrenci/index.php?resim_id=<c:out value="${ ogrDetay.getOgrTC() }"></c:out>'
-															style="width: 100%; height: 150px;" frameborder="0"></iframe>
-
-													</div>
-												</div>
+												
 											</div>
 										</div>
 										<div class="row">
+
 											<div class="col-md-12">
 												<div class="col-xs-8">
 													<div class="form-group">
 														<label for="#">Adres </label>
-														<textarea name="ogrAdres" placeholder="Adres"
+														<textarea name="ogrAdres" placeholder="Adres" disabled
 															class="form-control" rows="3"><c:out
 																value="${ ogrDetay.getOgrAdres() }"></c:out></textarea>
 													</div>
 
-												</div>
-												<div class="col-xs-4">
-													<div class="form-group">
-														<br> <br> <br>
-														<button type="button" id="btnGuncelleOgr"
-															class="btn btn-block btn-success">Güncelle</button>
-													</div>
 												</div>
 											</div>
 										</div>
@@ -315,36 +288,5 @@
 
 	<jsp:include page="${request.contextPath}/js"></jsp:include>
 
-
-
-	<!-- Page script-->
-	<script>
-		$(function() {
-			//Date picker
-			$('#datepicker').datepicker({
-				autoclose : true
-			})
-			$('[data-mask]').inputmask()
-			//Datemask dd/mm/yyyy
-			$('#datemask').inputmask('dd/mm/yyyy', {
-				'placeholder' : 'dd/mm/yyyy'
-			})
-		})
-	</script>
-	<script>
-		$('#btnGuncelleOgr').click(function() {
-			var ogrenci = $('#frmOgrenciDuzenle').serialize();
-			//ajax
-			$.ajax({
-				url : '<s:url value="/ogrenciguncellekaydet"></s:url>',
-				type : "post",
-				data : ogrenci,
-				success : function(yanit) {
-					alert(yanit);
-				}
-			});
-
-		});
-	</script>
 </body>
 </html>

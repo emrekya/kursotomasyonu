@@ -33,48 +33,52 @@
 			<!-- Main content -->
 			<section class="content">
 				<!-- Info boxes -->
-
-				<div class="col-md-12">
-					<div class="box">
-						<div class="box-header with-border">
-							<h3 class="box-title">Sınıf Ekleme</h3>
-						</div>
-						<!-- /.box-header -->
-						<div class="box-body">
-							<div class="col-md-12">
-								<form role="form" id="sinifGuncelle">
-									<div class="form-group">
-										<label>Sınıf Adı</label> <input type="text" name="sinifAdi"  value='<c:out value="${ snfDuzenle.getSinifAdi() }"></c:out>'
-											class="form-control" name="sinifAdi"
-											placeholder="Sınıf Adı Giriniz">
-									</div>
-									<input type="hidden" name="sinifId" value='<c:out value="${ snfDuzenle.getSinifId() }"></c:out>'>
-									<div class="form-group">
-										<label>Öğrenci Sayısı</label> <input type="number" 
-											class="form-control" name="ogrenciSayisi"  value='<c:out value="${ snfDuzenle.getOgrenciSayisi() }"></c:out>'
-											placeholder="Öğrenci Sayısı Giriniz">
-									</div>
-			
-									<!-- /.box-body -->
-								</form>
+				<div class="rows">
+					<div class="col-md-12">
+						<div class="box">
+							<div class="box-header with-border">
+								<h3 class="box-title">Sınıf Ekleme</h3>
 							</div>
-						</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<div class="col-md-12">
+									<form role="form" id="sinifGuncelle">
+										<div class="form-group">
+											<label>Sınıf Adı</label> <input type="text" name="sinifAdi"
+												value='<c:out value="${ snfDuzenle.getSinifAdi() }"></c:out>'
+												class="form-control" name="sinifAdi"
+												placeholder="Sınıf Adı Giriniz">
+										</div>
+										<input type="hidden" name="sinifId"
+											value='<c:out value="${ snfDuzenle.getSinifId() }"></c:out>'>
+										<div class="form-group">
+											<label>Öğrenci Sayısı</label> <input type="number"
+												class="form-control" name="ogrenciSayisi"
+												value='<c:out value="${ snfDuzenle.getOgrenciSayisi() }"></c:out>'
+												placeholder="Öğrenci Sayısı Giriniz">
+										</div>
 
-						<div class="box-footer">
-							<div class="row">
-								<div class="col-xs-12">
-				
-									<button type="button" class="btn btn-success pull-right" id="btnGuncelle"
-										style="margin-right: 5px;">
-										<i class="fa fa-download"></i> Guncelle
-									</button>
-
+										<!-- /.box-body -->
+									</form>
 								</div>
 							</div>
+
+							<div class="box-footer">
+								<div class="row">
+									<div class="col-xs-12">
+
+										<button type="button" class="btn btn-success pull-right"
+											id="btnGuncelle" style="margin-right: 5px;">
+											<i class="fa fa-download"></i> Guncelle
+										</button>
+
+									</div>
+								</div>
+							</div>
+							<!-- /.box-body -->
 						</div>
-						<!-- /.box-body -->
 					</div>
-				
+				</div>
 			</section>
 			<!-- /.content -->
 		</div>
@@ -86,21 +90,21 @@
 	<!-- ./wrapper -->
 	<jsp:include page="${request.contextPath}/js"></jsp:include>
 	<script>
-	$(document).ready(function() {
-		$('#btnGuncelle').click(function(){
-			var sinif = $('#sinifGuncelle').serialize();
-			$.ajax({
-				url :'<s:url value="/sinifguncellekaydet"></s:url>',
-				type :"post",
-				data : sinif,
-				success : function(sonuc){
-					alert(sonuc);
-				}
-				
+		$(document).ready(function() {
+			$('#btnGuncelle').click(function() {
+				var sinif = $('#sinifGuncelle').serialize();
+				$.ajax({
+					url : '<s:url value="/sinifguncellekaydet"></s:url>',
+					type : "post",
+					data : sinif,
+					success : function(sonuc) {
+						alert(sonuc);
+					}
+
+				});
 			});
-	});
-	});
-</script>
+		});
+	</script>
 
 </body>
 </html>
