@@ -28,7 +28,7 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Personel Düzenleme <small>Kurs Otomasyon</small>
+					Personel Detay <small>Kurs Otomasyon</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Yönetim</a></li>
