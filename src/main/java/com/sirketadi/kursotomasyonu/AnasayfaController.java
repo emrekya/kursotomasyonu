@@ -9,7 +9,7 @@ public class AnasayfaController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String anasayfa() {
-		return "anasayfa";
+		return "admin/giris";
 	}
 	
 }

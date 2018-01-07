@@ -128,7 +128,7 @@
 						<ul class="treeview-menu">
 							<li><a href='<s:url value="/dersekle"></s:url>'><i
 									class="fa fa-circle-o"></i> Sınıfa Göre Rapor Al</a></li>
-							<li><a href='<s:url value="/dersekle"></s:url>'><i
+							<li><a href='<s:url value="/yoklamaraporogrencilistesi"></s:url>'><i
 									class="fa fa-circle-o"></i> Öğrenciye Göre Rapor Al</a></li>
 						</ul></li>
 
