@@ -119,6 +119,9 @@
 				<ul class="treeview-menu">
 					<li><a href='<s:url value="/yoklamaal"></s:url>'><i
 							class="fa fa-circle-o"></i> Yoklama Al</a></li>
+							<li><a href='<s:url value="/yoklamatarihegore"></s:url>'><i
+							class="fa fa-circle-o"></i> Tarihe Göre Yoklama Al</a></li>
+							
 
 					<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
 							<span>Raporlar</span> <span class="pull-right-container">
