@@ -45,27 +45,32 @@
 							<div class="col-md-12">
 								<form role="form" id="dersGuncelleme">
 									<div class="form-group">
-										<label>Ders Adı</label> <input type="text" name="dersAdi" value='<c:out value="${ drsDuzenle.getDersAdi() }"></c:out>'
+										<label>Ders Adı</label> <input type="text" name="dersAdi"
+											value='<c:out value="${ drsDuzenle.getDersAdi() }"></c:out>'
 											class="form-control" name="dersAdi"
 											placeholder="Ders Adı Giriniz">
 									</div>
-									<input type="hidden" name="dersId" value='<c:out value="${ drsDuzenle.getDersId() }"></c:out>'>
+									<input type="hidden" name="dersId"
+										value='<c:out value="${ drsDuzenle.getDersId() }"></c:out>'>
 									<div class="form-group">
-										<label>Ders İçeriği</label> <input type="text" name="dersIcerigi" value='<c:out value="${ drsDuzenle.getDersIcerigi() }"></c:out>'
+										<label>Ders İçeriği</label> <input type="text"
+											name="dersIcerigi"
+											value='<c:out value="${ drsDuzenle.getDersIcerigi() }"></c:out>'
 											class="form-control" name="dersIcerigi"
 											placeholder="Ders İçeriği Giriniz">
 									</div>
-									
-						
+
+
 									<!-- /.box-body -->
 									<div class="box-footer">
 										<div class="row">
 											<div class="col-xs-12">
-					
-												
-												<button type="button" id="btnEkle" class="btn btn-success pull-right"
+
+
+												<button type="button" id="btnEkle"
+													class="btn btn-success pull-right"
 													style="margin-right: 5px;">
-													<i class="fa fa-download"></i> 	Güncelle
+													<i class="fa fa-download"></i> Güncelle
 												</button>
 
 											</div>
@@ -75,6 +80,9 @@
 								</form>
 							</div>
 							<!-- /.row -->
+						</div>
+					</div>
+				</div>
 			</section>
 			<!-- /.content -->
 
@@ -90,21 +98,21 @@
 	<jsp:include page="${request.contextPath}/js"></jsp:include>
 
 
-<script>
-	$(document).ready(function() {
-		$('#btnEkle').click(function(){
-			var ders = $('#dersGuncelleme').serialize();
-			$.ajax({
-				url :'<s:url value="/dersguncellekaydet"></s:url>',
-				type :"post",
-				data : ders,
-				success : function(sonuc){
-					alert(sonuc);
-				}
-				
+	<script>
+		$(document).ready(function() {
+			$('#btnEkle').click(function() {
+				var ders = $('#dersGuncelleme').serialize();
+				$.ajax({
+					url : '<s:url value="/dersguncellekaydet"></s:url>',
+					type : "post",
+					data : ders,
+					success : function(sonuc) {
+						alert(sonuc);
+					}
+
+				});
 			});
-	});
-	});
-</script>
+		});
+	</script>
 </body>
 </html>

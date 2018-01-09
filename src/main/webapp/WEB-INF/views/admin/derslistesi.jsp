@@ -59,8 +59,9 @@
 
 												<td><a
 													href='<s:url value="/dersguncelleme/${ drs.getDersId() }"></s:url>'
-													class="btn btn-warning">Düzenle</a></td>
-
+													class="btn btn-warning">Düzenle</a> <a
+													href='<s:url value="/dersogretmeniata/${ drs.getDersId() }"></s:url>'
+													class="btn btn-success">Öğretmen Ata</a></td>
 											</tr>
 
 										</c:forEach>

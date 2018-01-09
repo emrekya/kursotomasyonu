@@ -155,7 +155,7 @@ public class PersonelController {
 		return personelaramalistesi(query);
 	}
 
-	private List<Personel> perListesi(String query) {
+	public List<Personel> perListesi(String query) {
 		List<Personel> lsPersonel = new ArrayList<Personel>();
 		DB db = new DB();
 
