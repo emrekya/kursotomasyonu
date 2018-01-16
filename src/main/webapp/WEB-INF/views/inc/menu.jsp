@@ -118,10 +118,9 @@
 
 				<ul class="treeview-menu">
 					<li><a href='<s:url value="/yoklamaal"></s:url>'><i
-							class="fa fa-circle-o"></i> Yoklama Al</a></li>
-							<li><a href='<s:url value="/yoklamatarihegore"></s:url>'><i
+							class="fa fa-circle-o"></i> Günlük Yoklama Al</a></li>
+					<li><a href='<s:url value="/yoklamatarihegore"></s:url>'><i
 							class="fa fa-circle-o"></i> Tarihe Göre Yoklama Al</a></li>
-							
 
 					<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
 							<span>Raporlar</span> <span class="pull-right-container">
@@ -129,9 +128,11 @@
 						</span>
 					</a>
 						<ul class="treeview-menu">
-							<li><a href='<s:url value="/dersekle"></s:url>'><i
+							<li><a
+								href='<s:url value="/yoklamaraporsiniflistesi"></s:url>'><i
 									class="fa fa-circle-o"></i> Sınıfa Göre Rapor Al</a></li>
-							<li><a href='<s:url value="/yoklamaraporogrencilistesi"></s:url>'><i
+							<li><a
+								href='<s:url value="/yoklamaraporogrencilistesi"></s:url>'><i
 									class="fa fa-circle-o"></i> Öğrenciye Göre Rapor Al</a></li>
 						</ul></li>
 

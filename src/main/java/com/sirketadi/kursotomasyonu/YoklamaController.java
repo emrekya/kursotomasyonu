@@ -248,11 +248,4 @@ public class YoklamaController {
 		model.addAttribute("devamsizlikListesi", dListe);
 		return GirisController.denetim(req, "admin/yoklamaogrencidetay");
 	}
-	@RequestMapping(value = "/yoklamatarihegore", method = RequestMethod.GET)
-	public String yoklamatarihegore(Model model, HttpServletRequest req) {
-
-		SinifController snf = new SinifController();
-		model.addAttribute("lsSiniflar", snf.tamSinifListesi());
-		return GirisController.denetim(req, "admin/yoklamatarihegore");
-	}
 }

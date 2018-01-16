@@ -27,7 +27,7 @@ public class SinifController {
 	@RequestMapping(value = "/siniflistesi", method = RequestMethod.GET)
 	public String siniflistesi(Model model,  HttpServletRequest req) {
 		
-		model.addAttribute("lsSiniflar", tamSinifListesi());
+		model.addAttribute("lsSiniflar", tamSinifListesi()); 
 				
 		return GirisController.denetim(req, "admin/siniflistesi");
 	}

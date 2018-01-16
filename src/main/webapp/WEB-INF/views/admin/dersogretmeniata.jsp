@@ -95,17 +95,16 @@
 														<td><c:out value="${ personel.getPerBrans() }"></c:out></td>
 														<td><c:out value="${ personel.getPerGorev() }"></c:out></td>
 
-														<c:if test="${ not empty dersOgretmenleri }">
-														 <c:set var="islem" value="ekle"/>
-															<c:forEach var="personel" items="${ OgretmenListesi }">
-																	
-															</c:forEach>
-
+														<c:if test="${ personel.isPerDersOgretmeni()==true }">
+															<td><a
+																href='<s:url value="/dersogretmenikaydet/${ DersBilgisi.getDersId() }/${ personel.getPerID() }"></s:url>'
+																class="btn btn-danger">Sil</a></td>
 														</c:if>
-
-														<td><a
-															href='<s:url value="/dersogretmenikaydet/${ DersBilgisi.getDersId() }/${ personel.getPerID() }"></s:url>'
-															class="btn btn-success">Seç</a></td>
+														<c:if test="${ personel.isPerDersOgretmeni()==false }">
+															<td><a
+																href='<s:url value="/dersogretmenikaydet/${ DersBilgisi.getDersId() }/${ personel.getPerID() }"></s:url>'
+																class="btn btn-success">Seç</a></td>
+														</c:if>
 													</tr>
 
 												</c:forEach>

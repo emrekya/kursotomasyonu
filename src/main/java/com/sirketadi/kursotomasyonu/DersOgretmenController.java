@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import Properties.Dersler;
+import Properties.Personel;
 import Utils.DB;
 
 @Controller
@@ -22,10 +23,22 @@ public class DersOgretmenController {
 		
 		PersonelController pCont = new PersonelController();
 		String query = "Select * from personel where pergorev!='Admin';";
-		model.addAttribute("OgretmenListesi", pCont.perListesi(query));
+		List<Personel> personelListesi = pCont.perListesi(query);
+		List<String> DersOgretmenID = dersOgretmenleri(id);
 		
-		model.addAttribute("dersOgretmenleri", dersOgretmenleri(id));
-		
+		for (String perid : DersOgretmenID) {
+			for (int i = 0; i < personelListesi.size(); i++) {
+				if(perid.equals(personelListesi.get(i).getPerID())) {
+					Personel pr = personelListesi.get(i);					
+					pr.setPerDersOgretmeni(true);
+					System.out.println(personelListesi.get(i).getPerAdi());
+					personelListesi.set(i, pr);
+				}
+				
+			}
+		}
+		 
+		model.addAttribute("OgretmenListesi",personelListesi);
 		model.addAttribute("DersBilgisi", dersBilgisi(id));
 		return GirisController.denetim(req, "admin/dersogretmeniata");
 	}
@@ -37,7 +50,7 @@ public class DersOgretmenController {
 		try {
 			ResultSet rs = db.baglan().executeQuery(querydersOgretmenleri);
 			while(rs.next()) {
-				ogretmenId.add(rs.getString("dersid"));
+				ogretmenId.add(rs.getString("perid"));
 			}
 		} catch (Exception e) {
 			System.err.println("vt Ders Öðretmenleri Bulma hatasý  " + e);
@@ -83,7 +96,7 @@ public class DersOgretmenController {
 			try {
 				db.baglan().executeUpdate(query);
 			} catch (Exception e) {
-				System.err.println("Vt ders öðretmeni ekleme hatasý");
+				System.err.println("Vt ders öðretmeni ekleme hatasý: " + e);
 			}
 		}else if(islem ==1) {
 			String querysil="delete from dersogretmenleri where dersid='" + dersid + "' and perid='"+ perid + "';";

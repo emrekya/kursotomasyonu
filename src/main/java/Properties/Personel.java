@@ -18,6 +18,13 @@ public class Personel {
 	private String perMaas;
 	private String perResimAdi;
 	private String perAktiflik;
+	private boolean perDersOgretmeni=false;
+	public boolean isPerDersOgretmeni() {
+		return perDersOgretmeni;
+	}
+	public void setPerDersOgretmeni(boolean perDersOgretmeni) {
+		this.perDersOgretmeni = perDersOgretmeni;
+	}
 	public String getPerAktiflik() {
 		return perAktiflik;
 	}

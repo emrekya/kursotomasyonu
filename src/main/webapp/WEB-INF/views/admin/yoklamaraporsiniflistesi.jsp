@@ -20,7 +20,7 @@
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Tarihe Göre Yoklama Alma <small>Kurs Otomasyon</small>
+					Yoklama Raporlar Sınıf Listesi <small>Kurs Otomasyon</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Yönetim</a></li>
@@ -42,10 +42,10 @@
 							<div class="box-body">
 								<div class="col-xs-6">
 									<c:if test="${not empty lsSiniflar }">
-										<label>Sınıf Seç:</label>
+									<label> Sınıf Seç:</label>
 										<div class="form-group">
 											<select id="SinifAdi" class="form-control">
-												<option value="-1">Sınıf Seç</option>
+												<option>Sınıf Seç</option>
 												<c:forEach items="${lsSiniflar}" var="snf">
 
 													<option value=<c:out value="${snf.getSinifId()}"></c:out>><c:out
@@ -56,33 +56,31 @@
 
 									</c:if>
 								</div>
-								<div class="col-xs-4	">
-									<div class="form-group">
-										<label> Tarihi Seç:</label>
+									<div class="col-xs-4	">
+								<div class="form-group">
+									<label> Tarihi Seç:</label>
 
-										<div class="input-group date">
-											<div class="input-group-addon">
-												<i class="fa fa-calendar"></i>
-											</div>
-											<input type="text" class="form-control pull-right"
-												name="ogrDogumTarihi" id="datepicker"
-												data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+									<div class="input-group date">
+										<div class="input-group-addon">
+											<i class="fa fa-calendar"></i>
 										</div>
-
-										<!-- /.input group -->
+										<input type="text" class="form-control pull-right"
+											name="ogrDogumTarihi" id="datepicker"
+											data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
 									</div>
+
+									<!-- /.input group -->
+								</div>
 								</div>
 								<div class="col-xs-2">
-									<label> &nbsp; </label>
 									<div class="form-group">
-										<button type="button" id="yoklamagir"
-											class="btn btn-block btn-success">Yoklama Gir</button>
+										<button type="button" id="sinifsec"
+											class="btn btn-block btn-success">Sınıf Seç</button>
 									</div>
 								</div>
 							</div>
 
 						</div>
-						<!-- /.box -->
 						<div class="box box-info">
 							<div class="box-header with-border" align="left">
 								<label class="box-title" id="lblSinifBilgisi">Sınıf
@@ -97,19 +95,33 @@
 											<th>TC</th>
 											<th>Adı</th>
 											<th>Soyadı</th>
-											<th>Geldi</th>
 											<th>Gelmedi</th>
 											<th>Raporlu</th>
 											<th>İzinli</th>
+											<th>Toplam</th>
+											<th>Detay</th>
 										</tr>
 										<tbody id="ekleYaz">
+											<c:if test="${ not empty yoklamaListesi }">
+												<c:forEach items="${ yoklamaListesi }" var="yoklama">
+													<tr>
+														<td><c:out value="${ yoklama.getSira() }"></c:out></td>
+														<td><c:out value="${ yoklama.getOgrTC() }"></c:out></td>
+														<td><c:out value="${ yoklama.getOgrAdi() }"></c:out></td>
+														<td><c:out value="${ yoklama.getOgrSoyadi() }"></c:out></td>
+														<td><c:out value="${ yoklama.getOgrGelmedi() }"></c:out></td>
+														<td><c:out value="${ yoklama.getOgrRaporlu() }"></c:out></td>
+														<td><c:out value="${ yoklama.getOgrIzinli() }"></c:out></td>
+														<td><c:out value="${ yoklama.getOgrToplam() }"></c:out></td>
+														<td><a
+															href='<s:url value="/yoklamaogrencidetay/${ yoklama.getOgrId() }"></s:url>'
+															class="btn btn-info">Detay</a></td>
+													</tr>
+												</c:forEach>
+											</c:if>
 										</tbody>
 
 									</table>
-									<div class="form-group">
-										<button type="submit" id="yoklamayikaydet"
-											class="btn btn-block btn-success">Yoklamayı Kaydet</button>
-									</div>
 								</form>
 							</div>
 						</div>
@@ -129,51 +141,19 @@
 	<!-- ./wrapper -->
 
 	<jsp:include page="${request.contextPath}/js"></jsp:include>
+
 	<script>
 		$(function() {
-			
+			//Date picker
+			$('#datepicker').datepicker({
+				autoclose : true
+			})
 			$('[data-mask]').inputmask()
 			//Datemask dd/mm/yyyy
-			$('#datemask').inputmask('dd/MM/yyyy', {
-				'placeholder' : 'dd/MM/yyyy'
+			$('#datemask').inputmask('dd/mm/yyyy', {
+				'placeholder' : 'dd/mm/yyyy'
 			})
 		});
-	</script>
-	<script>
-		$('#yoklamagir')
-				.click(
-						function() {
-
-							var SinifAdi = $('#SinifAdi').val();
-							var lblsinif = $('#SinifAdi option:selected')
-									.html();
-							var tarih = $('#datepicker').val();
-							
-							//ajax
-							$.ajax({
-								url : '<s:url value="/yoklamasinifgetirtarih"></s:url>',
-										type : "post",
-										data : {
-											"SinifAdi" : SinifAdi,
-											"tarih" : tarih
-										},
-										success : function(yanit) {
-											alert(yanit);
-											//	$('#lblSinifBilgisi')
-											//			.html(
-											//					lblsinif
-											//							+ " Sınıf Listesi");
-											//	$('#yoklamaKaydet')
-											//			.attr(
-											//					'action',
-											//					("yoklamakaydet/" + SinifAdi));
-											//	$('#ekleYaz').html(yanit);
-											
-										}
-									});
-
-						});
-						
 	</script>
 </body>
 </html>
